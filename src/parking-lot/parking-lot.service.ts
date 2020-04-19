@@ -11,6 +11,12 @@ export class ParkingLotService {
 
   setCapacity(num){
     this.parking_lot['capacity'] = num;
+
+    // Add To Array
+    for (let idx = 0; idx < num; idx++) {
+      this.parking_lot['slots'].push(null);
+    }
+
     console.log('Created parking lot with ' + num + ' slots');
     return 'Created parking lot with ' + num + ' slots';
   }
@@ -19,15 +25,29 @@ export class ParkingLotService {
   park(data){
     let maxCapacity = this.parking_lot['capacity'];
 
-    if(this.parking_lot['slots'].length>=maxCapacity){
-      console.log('Sorry, parking lot is full');
-      return 'Sorry, parking lot is full';
+    for (let idx = 0; idx < maxCapacity; idx++) {
+      if(this.parking_lot['slots'][idx]==null){
+        this.parking_lot['slots'][idx] = data;
+
+        console.log('Allocated slot number: ' + (idx+1));
+        return 'Allocated slot number: ' + (idx+1);
+        // break;
+      }
+      
     }
-    else{
-      this.parking_lot['slots'].push(data);
-      console.log('Allocated slot number: ' + (this.parking_lot['slots'].length));
-      return 'Allocated slot number: ' + (this.parking_lot['slots'].length);
-    }
+
+    console.log('Sorry, parking lot is full');
+    return 'Sorry, parking lot is full';
+
+    // if(this.parking_lot['slots'].length>=maxCapacity){
+    //   console.log('Sorry, parking lot is full');
+    //   return 'Sorry, parking lot is full';
+    // }
+    // else{
+    //   this.parking_lot['slots'].push(data);
+    //   console.log('Allocated slot number: ' + (this.parking_lot['slots'].length));
+    //   return 'Allocated slot number: ' + (this.parking_lot['slots'].length);
+    // }
   }
 
   // LEAVE PARK SLOTS
@@ -40,7 +60,9 @@ export class ParkingLotService {
         charge = charge + ((hours-2) * 10);
       };
 
-      this.parking_lot['slots'].splice(dataIdx, 1);
+      this.parking_lot['slots'][dataIdx] = null;
+
+      // this.parking_lot['slots'].splice(dataIdx, 1);
       console.log('Registration number ' + data + ' with Slot Number ' + (dataIdx+1) + ' is free with Charge ' + charge);
       return 'Registration number ' + data + ' with Slot Number ' + (dataIdx+1) + ' is free with Charge ' + charge;
     }
@@ -55,7 +77,46 @@ export class ParkingLotService {
     console.log('Slot No. \tRegistration No.');
     for (let idx = 0; idx < this.parking_lot['slots'].length; idx++) {
       const element = this.parking_lot['slots'][idx];
-      console.log((idx+1) + '\t' + element);
+
+      if(element!=null){
+        console.log((idx+1) + '\t' + element);
+      }
+      
+    }
+  }
+
+  // PARSING TEXT AND PROCEES
+  parsing(text){
+    let myArr = text.split(" ");
+    // console.log(myArr);
+    
+    if(myArr.length>0){
+      switch (myArr[0]) {
+        case 'status':
+          this.status();
+          break;
+        case 'create_parking_lot':
+          if(myArr.length==2){
+            this.create();
+            this.setCapacity(parseInt(myArr[1]));
+          };
+          
+          break;
+        case 'park':
+          if(myArr.length==2){
+            this.park(myArr[1]);
+          };
+          
+          break;
+        case 'leave':
+          if(myArr.length==3){
+            this.leave(myArr[1], parseInt(myArr[2]));
+          };
+          
+          break;
+        default:
+          break;
+      }
     }
   }
 }
