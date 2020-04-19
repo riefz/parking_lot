@@ -10,6 +10,7 @@ export class ParkingLotService {
   }
 
   setCapacity(num){
+    // this.parking_lot = {capacity: 0, slots: []};
     this.parking_lot['capacity'] = num;
 
     // Add To Array
