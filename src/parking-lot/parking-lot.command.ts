@@ -11,18 +11,44 @@ export class ParkingLotCommand {
     private readonly parkingLotService: ParkingLotService,
   ) { }
  
-  // autoExit defaults to `true`, but you can use `autoExit: false` if you need more control
-  @Command({ command: 'create:parking_lot <num>', describe: 'create a parking lot', autoExit: true })
-  async create(
-    @Positional({
-      name: 'num',
-      describe: 'capacity number',
-      type: 'number',
-    }) num: number,
-  ) {
-    this.parkingLotService.create();
-    this.parkingLotService.setCapacity(num);
-  }
+//   @Command({ command: 'create_parking_lot <num>', describe: 'Create parking lot of size n', autoExit: true })
+//   async create(
+//     @Positional({
+//       name: 'num',
+//       describe: 'Create parking lot of size n',
+//       type: 'number',
+//     }) num: number,
+//   ) {
+//     this.parkingLotService.create();
+//     this.parkingLotService.setCapacity(num);
+//   }
+
+//   @Command({ command: 'park <name>', describe: 'Park a car', autoExit: true })
+//   async park(
+//     @Positional({
+//       name: 'name',
+//       describe: 'Park a car',
+//       type: 'string',
+//     }) name: string,
+//   ) {
+//     this.parkingLotService.park(name);
+//   }
+
+//   @Command({ command: 'leave <name> <num>', describe: 'Remove (Unpark) car from', autoExit: true })
+//   async leave(
+//     @Positional({
+//       name: 'name',
+//       describe: 'Name of a car',
+//       type: 'string',
+//     }) name: string,
+//     @Positional({
+//         name: 'num',
+//         describe: 'Total Hours',
+//         type: 'number',
+//       }) num: number,
+//   ) {
+//     this.parkingLotService.leave(name, num);
+//   }
 
   @Command({ command: 'parking_lot <file>', describe: 'Read parking lot source file', autoExit: true })
   async upload(
