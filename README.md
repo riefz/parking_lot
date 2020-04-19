@@ -4,17 +4,21 @@
 $ npm install
 ```
 
-## Running the app
+## Running the app using POSTMAN
 
 ```bash
 # development
 $ npm run start
 
-# watch mode
-$ npm run start:dev
+# using postman
+POST http://localhost:3000/parking-lot with content-type: multipart/form-data, file AS name of uploaded file parameter
+```
 
-# production mode
-$ npm run start:prod
+## Running the app using command line
+
+```bash
+# Run Application with input file (example is : './files/file_input.txt')
+$ npx nestjs-command parking_lot ./files/file_input.txt
 ```
 
 ## Test
@@ -29,17 +33,3 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-  Nest is [MIT licensed](LICENSE).
